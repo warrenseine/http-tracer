@@ -1,0 +1,14 @@
+.idea/
+.nuget/
+.vscode/
+node_modules/
+bin/
+obj/
+dist/
+docs/
+logs/
+.DS_Store
+*.map
+*.log
+*.suo
+*.user
