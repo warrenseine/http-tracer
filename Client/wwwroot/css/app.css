@@ -117,6 +117,35 @@ app {
     color: red;
 }
 
+.table {
+    table-layout: fixed;
+}
+
+.table th.status {
+    width: 100px;
+}
+
+.table th.waterfall {
+    width: 300px;
+}
+
+.table td.time {
+    text-align: right;
+}
+
+.table td.size {
+    text-align: right;
+}
+
+.table td.waterfall {
+    height: 0; /* Magic! */
+}
+
+.table td.waterfall div.waterfall-block {
+    background: red;
+    height: 100%;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

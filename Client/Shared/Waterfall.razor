@@ -1,0 +1,17 @@
+﻿<div class="waterfall-block" style="margin-left: @MarginLeft; width: @Width"></div>
+
+@code {
+    [Parameter]
+    public RequestState Request { get; set; }
+
+    [Parameter]
+    public DateTimeOffset InitialTime { get; set; }
+
+    private DateTimeOffset CurrentTime => DateTimeOffset.Now;
+
+    private string MarginLeft => $"{AsPercent(Request.StartTime.Subtract(InitialTime).TotalMilliseconds / CurrentTime.Subtract(InitialTime).TotalMilliseconds)}%";
+
+    private string Width => $"{AsPercent((Request.EndTime ?? CurrentTime).Subtract(Request.StartTime).TotalMilliseconds / CurrentTime.Subtract(InitialTime).TotalMilliseconds)}%";
+
+    private double AsPercent(double value) => Math.Min(Math.Max(value, 0), 1) * 100;
+}
