@@ -4,7 +4,9 @@ using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using HttpTracer.Shared.Clients;
 using HttpTracer.Shared.Events;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -15,11 +17,13 @@ namespace HttpTracer.Server.Services
         private const string EventSourceName = "Microsoft-System-Net-Http";
 
         private bool _started;
+        private readonly IHttpTraceClient _httpTraceClient;
         private readonly CancellationToken _cancellationToken;
         private readonly ILogger<HttpEventListenerService> _logger;
 
-        public HttpEventListenerService(IHostApplicationLifetime applicationLifetime, ILogger<HttpEventListenerService> logger)
+        public HttpEventListenerService(IHubContext<HttpTraceHub, IHttpTraceClient> hubContext, IHostApplicationLifetime applicationLifetime, ILogger<HttpEventListenerService> logger)
         {
+            _httpTraceClient = hubContext.Clients.All;
             _cancellationToken = applicationLifetime.ApplicationStopping;
             _logger = logger;
         }
@@ -59,7 +63,9 @@ namespace HttpTracer.Server.Services
 
                 if (httpTraceEvent != null)
                 {
-                    Console.WriteLine(httpTraceEvent);
+                    // Console.WriteLine(httpTraceEvent);
+
+                    _httpTraceClient.PushHttpTrace(httpTraceEvent);
                 }
                 else
                 {

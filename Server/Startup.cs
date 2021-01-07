@@ -1,4 +1,5 @@
 using System.Linq;
+using HttpTracer.Server.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -59,6 +60,7 @@ namespace HttpTracer.Server
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
+                endpoints.MapHub<HttpTraceHub>("/Trace");
             });
         }
     }

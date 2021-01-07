@@ -1,5 +1,25 @@
 ﻿@page "/"
+@inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.SignalR.Client
+@using Microsoft.Extensions.DependencyInjection
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+@code {
+    private HubConnection _hubConnection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/Trace"))
+            .AddJsonProtocol()
+            .Build();
+
+        _hubConnection.On<HttpTraceEvent>("PushHttpTrace", messageEvent =>
+            Console.WriteLine(messageEvent.SequenceId));
+
+        await _hubConnection.StartAsync();
+    }
+}
