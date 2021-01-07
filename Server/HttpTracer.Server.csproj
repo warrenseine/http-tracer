@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>http-tracer.Server</RootNamespace>
     <AssemblyName>$(AssemblyName.Replace(' ', '_'))</AssemblyName>
   </PropertyGroup>
 
@@ -11,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Client\http-tracer.Client.csproj" />
-    <ProjectReference Include="..\Shared\http-tracer.Shared.csproj" />
+    <ProjectReference Include="..\Client\HttpTracer.Client.csproj" />
+    <ProjectReference Include="..\Shared\HttpTracer.Shared.csproj" />
   </ItemGroup>
 
 

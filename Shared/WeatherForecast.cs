@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace http_tracer.Shared
+namespace HttpTracer.Shared
 {
     public class WeatherForecast
     {

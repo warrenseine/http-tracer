@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
 
-namespace http_tracer.Server
+namespace HttpTracer.Server
 {
     public class Startup
     {

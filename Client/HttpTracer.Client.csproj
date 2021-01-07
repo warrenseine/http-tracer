@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared\http-tracer.Shared.csproj" />
+    <ProjectReference Include="..\Shared\HttpTracer.Shared.csproj" />
   </ItemGroup>
 
 </Project>
