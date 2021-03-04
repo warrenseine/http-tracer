@@ -9,7 +9,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace HttpTracer.Server
 {
-    public class Startup
+    internal class Startup
     {
         public Startup(IConfiguration configuration)
         {

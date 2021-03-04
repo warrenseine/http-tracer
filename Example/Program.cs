@@ -2,30 +2,17 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using HttpTracer.Server.Services;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using HttpTracer.Server;
 
-namespace HttpTracer.Server
+namespace HttpTracer.Example
 {
     internal static class Program
     {
-        private static async Task Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            await Task.WhenAll(Task.Run(RunHttpRequests), CreateHostBuilder(args).Build().RunAsync());
+            Console.WriteLine("Hello World!");
+            await Task.WhenAll(HttpTracerServer.Run(), RunHttpRequests());
         }
-
-        private static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                })
-                .ConfigureServices(services =>
-                {
-                    services.AddHostedService<HttpEventListenerService>();
-                });
 
         private static readonly IReadOnlyList<string> Urls = new[]
         {
@@ -57,8 +44,11 @@ namespace HttpTracer.Server
             var uri = new Uri(url);
             var message = new HttpRequestMessage(HttpMethod.Get, uri.PathAndQuery);
 
-            using var httpClientHandler = new HttpClientHandler();
-            httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+            using var httpClientHandler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback =
+                    HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+            };
 
             using var client = new HttpClient(httpClientHandler)
             {
